@@ -9,7 +9,7 @@ configurable string kerberosShare = ?;
 configurable string kerberosConfigFile = ?;
 
 public function main() returns error? {
-    smb:Client kerberosClient = check new ({
+    smb:Client|error kerberosClient = new ({
         host: kerberosHost,
         port: 445,
         auth: {
@@ -25,6 +25,11 @@ public function main() returns error? {
         },
         share: kerberosShare
     });
+
+    if kerberosClient is error {
+        io:println(kerberosClient);
+        return;
+    }
 
     smb:FileInfo[]|error listResult = kerberosClient->list("/");
     io:println(listResult);
