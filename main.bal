@@ -1,4 +1,5 @@
 import ballerina/io;
+import ballerina/log;
 import nuvindu/smb;
 
 configurable string kerberosHost = ?;
