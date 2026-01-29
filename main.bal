@@ -1,6 +1,6 @@
 import ballerina/io;
-import ballerina/log;
 import nuvindu/smb;
+import ballerina/log;
 
 configurable string kerberosHost = ?;
 configurable string kerberosUser = ?;
@@ -10,7 +10,7 @@ configurable string kerberosShare = ?;
 configurable string kerberosConfigFile = ?;
 
 public function main() returns error? {
-    smb:Client|error kerberosClient = new ({
+    smb:Client|error ntlmClient = check new ({
         host: kerberosHost,
         port: 445,
         auth: {
@@ -18,32 +18,29 @@ public function main() returns error? {
                 username: kerberosUser,
                 password: kerberosPassword,
                 domain: kerberosDomain
-            },
-            kerberosConfig: {
-                principal: kerberosUser + "@" + kerberosDomain,
-                configFile: kerberosConfigFile
             }
         },
         share: kerberosShare
     });
 
-    if kerberosClient is error {
-        log:printError(kerberosClient.message(), kerberosClient);
+
+    if ntlmClient is error {
+        log:printError(ntlmClient.message(), ntlmClient);
         io:println("Error occurred while creating the Kerberos authenticated SMB client: " +
-            kerberosClient.message());
-        return error (kerberosClient.message());
+            ntlmClient.message());
+        return error (ntlmClient.message());
     }
 
-    smb:FileInfo[]|error listResult = kerberosClient->list("/");
+    smb:FileInfo[]|error listResult = ntlmClient->list("/");
     io:println(listResult);
  
-    string testFileName = "/kerberos_test_file5.txt";
-    string testContent = "Hello from Kerberos authenticated client!";
-    error? writeResult = kerberosClient->putText(testFileName, testContent);
+    string testFileName = "/ntlm_test_file5.txt";
+    string testContent = "Hello from NTLM authenticated client!";
+    error? writeResult = ntlmClient->putText(testFileName, testContent);
 
-    boolean|error existsResult = kerberosClient->exists(testFileName);
+    boolean|error existsResult = ntlmClient->exists(testFileName);
 
-    string|error readResult = kerberosClient->getText(testFileName);
+    string|error readResult = ntlmClient->getText(testFileName);
     io:println(readResult);
 
 }
