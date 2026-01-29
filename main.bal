@@ -27,8 +27,10 @@ public function main() returns error? {
     });
 
     if kerberosClient is error {
-        io:println(kerberosClient);
-        return;
+        log:printError(kerberosClient.message(), kerberosClient);
+        io:println("Error occurred while creating the Kerberos authenticated SMB client: " +
+            kerberosClient.message());
+        return error (kerberosClient.message());
     }
 
     smb:FileInfo[]|error listResult = kerberosClient->list("/");
