@@ -32,6 +32,10 @@ public function main() returns error? {
     }
     log:printInfo("client intialized");
     smb:FileInfo[]|error listResult = ntlmClient->list("/");
+    if listResult is error {
+        log:printError(listResult.message(), listResult);
+        return error (listResult.message());
+    }
     log:printInfo(listResult.toString());
     io:println(listResult);
  
