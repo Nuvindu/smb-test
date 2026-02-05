@@ -12,7 +12,7 @@ configurable string kerberosConfigFile = ?;
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
         host: kerberosHost,
-        port: 445,
+        port: 8445,
         auth: {
             credentials: {
                 username: kerberosUser,
