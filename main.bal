@@ -10,7 +10,7 @@ configurable string kerberosShare = ?;
 configurable string kerberosConfigFile = ?;
 
 public function main() returns error? {
-    smb:Client|error ntlmClient = check new ({
+    smb:Client|error ntlmClient = new ({
         host: kerberosHost,
         port: 445,
         auth: {
@@ -30,8 +30,9 @@ public function main() returns error? {
             ntlmClient.message());
         return error (ntlmClient.message());
     }
-
+    log:printInfo("client intialized");
     smb:FileInfo[]|error listResult = ntlmClient->list("/");
+    log:printInfo(listResult.toString());
     io:println(listResult);
  
     string testFileName = "/ntlm_test_file5.txt";
