@@ -3,6 +3,7 @@ import nuvindu/smb;
 import ballerina/log;
 
 configurable string kerberosHost = ?;
+configurable string port = ?;
 configurable string kerberosUser = ?;
 configurable string kerberosPassword = ?;
 configurable string kerberosDomain = ?;
@@ -12,7 +13,7 @@ configurable string kerberosConfigFile = ?;
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
         host: kerberosHost,
-        port: 8445,
+        port,
         auth: {
             credentials: {
                 username: kerberosUser,
