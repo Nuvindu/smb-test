@@ -2,32 +2,32 @@ import ballerina/io;
 import nuvindu/smb;
 import ballerina/log;
 
-configurable string kerberosHost = ?;
-configurable string port = ?;
-configurable string kerberosUser = ?;
-configurable string kerberosPassword = ?;
-configurable string kerberosDomain = ?;
-configurable string kerberosShare = ?;
-configurable string kerberosConfigFile = ?;
+configurable string ntlmHost = ?;
+configurable int ntlmPort = ?;
+configurable string ntlmUser = ?;
+configurable string ntlmPassword = ?;
+configurable string ntlmDomain = ?;
+configurable string ntlmShare = ?;
+configurable string ntlmConfigFile = ?;
 
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
-        host: kerberosHost,
-        port,
+        host: ntlmHost,
+        port: ntlmPort,
         auth: {
             credentials: {
-                username: kerberosUser,
-                password: kerberosPassword,
-                domain: kerberosDomain
+                username: ntlmUser,
+                password: ntlmPassword,
+                domain: ntlmDomain
             }
         },
-        share: kerberosShare
+        share: ntlmShare
     });
 
 
     if ntlmClient is error {
         log:printError(ntlmClient.message(), ntlmClient);
-        io:println("Error occurred while creating the Kerberos authenticated SMB client: " +
+        io:println("Error occurred while creating the ntlm authenticated SMB client: " +
             ntlmClient.message());
         return error (ntlmClient.message());
     }
