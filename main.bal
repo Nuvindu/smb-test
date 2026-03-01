@@ -1,5 +1,5 @@
 import ballerina/io;
-import nuvindu/smb;
+import ballerina/smb;
 import ballerina/log;
 
 configurable string ntlmHost = ?;
