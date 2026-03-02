@@ -8,7 +8,6 @@ configurable string ntlmUser = ?;
 configurable string ntlmPassword = ?;
 configurable string ntlmDomain = ?;
 configurable string ntlmShare = ?;
-configurable string ntlmConfigFile = ?;
 
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
@@ -48,5 +47,4 @@ public function main() returns error? {
 
     string|error readResult = ntlmClient->getText(testFileName);
     io:println(readResult);
-
 }
