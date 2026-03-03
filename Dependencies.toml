@@ -19,7 +19,7 @@ dependencies = [
 [[package]]
 org = "ballerina"
 name = "data.csv"
-version = "0.9.0"
+version = "0.8.2"
 dependencies = [
 	{org = "ballerina", name = "jballerina.java"},
 	{org = "ballerina", name = "log"}
@@ -116,24 +116,6 @@ dependencies = [
 
 [[package]]
 org = "ballerina"
-name = "smb"
-version = "1.0.1"
-dependencies = [
-	{org = "ballerina", name = "data.csv"},
-	{org = "ballerina", name = "data.jsondata"},
-	{org = "ballerina", name = "data.xmldata"},
-	{org = "ballerina", name = "io"},
-	{org = "ballerina", name = "jballerina.java"},
-	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "task"},
-	{org = "ballerina", name = "time"}
-]
-modules = [
-	{org = "ballerina", packageName = "smb", moduleName = "smb"}
-]
-
-[[package]]
-org = "ballerina"
 name = "task"
 version = "2.11.1"
 dependencies = [
@@ -162,13 +144,31 @@ dependencies = [
 ]
 
 [[package]]
+org = "nuvindu"
+name = "smb"
+version = "1.1.0"
+dependencies = [
+	{org = "ballerina", name = "data.csv"},
+	{org = "ballerina", name = "data.jsondata"},
+	{org = "ballerina", name = "data.xmldata"},
+	{org = "ballerina", name = "io"},
+	{org = "ballerina", name = "jballerina.java"},
+	{org = "ballerina", name = "log"},
+	{org = "ballerina", name = "task"},
+	{org = "ballerina", name = "time"}
+]
+modules = [
+	{org = "nuvindu", packageName = "smb", moduleName = "smb"}
+]
+
+[[package]]
 org = "nuvindun"
 name = "smb_test"
 version = "1.0.0"
 dependencies = [
 	{org = "ballerina", name = "io"},
 	{org = "ballerina", name = "log"},
-	{org = "ballerina", name = "smb"}
+	{org = "nuvindu", name = "smb"}
 ]
 modules = [
 	{org = "nuvindun", packageName = "smb_test", moduleName = "smb_test"}

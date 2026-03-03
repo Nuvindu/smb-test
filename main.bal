@@ -1,5 +1,5 @@
 import ballerina/io;
-import ballerina/smb;
+import nuvindu/smb;
 import ballerina/log;
 
 configurable string ntlmHost = ?;
@@ -8,6 +8,8 @@ configurable string ntlmUser = ?;
 configurable string ntlmPassword = ?;
 configurable string ntlmDomain = ?;
 configurable string ntlmShare = ?;
+configurable string proxyHost = ?;
+configurable int proxyPort = ?;
 
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
@@ -20,7 +22,11 @@ public function main() returns error? {
                 domain: ntlmDomain
             }
         },
-        share: ntlmShare
+        share: ntlmShare,
+        proxy: {
+            host: proxyHost,
+            port: proxyPort
+        }
     });
 
 
