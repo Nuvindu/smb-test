@@ -13,8 +13,8 @@ configurable int proxyPort = ?;
 
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
-        host: ntlmHost,
-        port: ntlmPort,
+        host: ntlmHost, // SMB server IP address
+        port: ntlmPort, // SMB server port
         auth: {
             credentials: {
                 username: ntlmUser,
@@ -24,11 +24,10 @@ public function main() returns error? {
         },
         share: ntlmShare,
         proxy: {
-            host: proxyHost,
-            port: proxyPort
+            host: proxyHost, // Tailscale hostname
+            port: proxyPort // Tailscale port
         }
     });
-
 
     if ntlmClient is error {
         log:printError(ntlmClient.message(), ntlmClient);
