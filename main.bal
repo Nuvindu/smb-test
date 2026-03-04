@@ -10,6 +10,7 @@ configurable string ntlmDomain = ?;
 configurable string ntlmShare = ?;
 configurable string proxyHost = ?;
 configurable int proxyPort = ?;
+configurable smb:ProxyType proxyType = ?;
 
 public function main() returns error? {
     smb:Client|error ntlmClient = new ({
@@ -26,7 +27,7 @@ public function main() returns error? {
         proxy: {
             host: proxyHost, // Tailscale hostname
             port: proxyPort, // Tailscale port
-            'type: smb:TCP
+            'type: proxyType
         }
     });
 
