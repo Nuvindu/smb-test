@@ -25,7 +25,8 @@ public function main() returns error? {
         share: ntlmShare,
         proxy: {
             host: proxyHost, // Tailscale hostname
-            port: proxyPort // Tailscale port
+            port: proxyPort, // Tailscale port
+            'type: smb:TCP
         }
     });
 
